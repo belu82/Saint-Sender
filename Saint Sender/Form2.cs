@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Net.Mail;
 
 namespace Saint_Sender
 {
@@ -23,6 +24,23 @@ namespace Saint_Sender
         
         private void loginButton_Click(object sender, EventArgs e)
         {
+            MailMessage mymessage = new MailMessage();
+            SmtpClient gmailsetupsmtp = new SmtpClient("smtp.gmail.com");
+            gmailsetupsmtp.Port = 587;
+            gmailsetupsmtp.Credentials = new System.Net.NetworkCredential(textMail.Text, textPassw.Text);
+            gmailsetupsmtp.EnableSsl = true;
+            User user = new User(textMail.Text, textPassw.Text);
+            user.mailAddress = textMail.Text;
+            user.password = textPassw.Text;
+            user.save(textMail.Text, textPassw.Text);
+
+            user = null;
+
+
+            Form1 form1 = new Form1();
+            form1.Show();
+            this.Hide();
+            /*
             if (textMail.Text == "")
             {
                 MessageBox.Show("Please enter user name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -86,6 +104,7 @@ namespace Saint_Sender
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            */
             /*
             string str = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Ádám\Documents\Data.mdf;Integrated Security=True;Connect Timeout=30";
             SqlConnection con = new SqlConnection(str);

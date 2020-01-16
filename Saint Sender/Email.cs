@@ -3,22 +3,55 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
+
 
 using System.IO;
 namespace Saint_Sender
 {
-    class Email
+    public class Email
     {
 
-        private string sender { get; }
-        private string subject { get; }
+        public string sender;
+        public string subject;
+        public string date;
+        public string address;
+        public string content;
 
-        private DateTime date { get; set; }
-        public Email(string sender, string subject, DateTime date)
+
+
+       
+
+        public Email()
+        {
+        }
+
+        public Email(string sender, string subject, string date, string address, string content)
         {
             this.sender = sender;
             this.subject = subject;
             this.date = date;
+            this.address = address;
+            this.content = content;
+        }
+
+        public void SaveMail(string filename)
+        {
+            using (var stream = new FileStream(filename, FileMode.Create))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(Email));
+                serializer.Serialize(stream, this);
+
+            }
+        }
+
+        public static Email LoadMail(string filename)
+        {
+            using (var stream = new FileStream(filename, FileMode.Open))
+            {
+                XmlSerializer deserializer = new XmlSerializer(typeof(Email));
+                return (Email)deserializer.Deserialize(stream);
+            }
         }
     
         /*

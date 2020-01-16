@@ -22,7 +22,9 @@ namespace Saint_Sender
             InitializeComponent();
 
             loadMails();
+
         }
+
 
         public void loadMails()
         {
@@ -31,6 +33,7 @@ namespace Saint_Sender
             using (Imap imap = new Imap())
             {
                 imap.ConnectSSL("imap.gmail.com");       // or ConnectSSL for SSL
+
                 imap.UseBestLogin("beluhbo82@gmail.com", "Manson82");
                 
                 imap.SelectInbox();
@@ -90,11 +93,14 @@ namespace Saint_Sender
                     */
                     IMail mail = new MailBuilder().CreateFromEml(eml);
 
-                    string[] newMail = new string[3];
+                    string[] newMail = new string[5];
                     ListViewItem itm;
                     newMail[0] = mail.Sender.Name.ToString();
                     newMail[1] = mail.Subject.ToString();
                     newMail[2] = mail.Date.ToString();
+                    newMail[3] = mail.Text.ToString();
+                    newMail[4] = mail.Sender.Address.ToString();
+                  
                     itm = new ListViewItem(newMail);
                     metroListView1.Items.Add(itm);
                 }
@@ -115,6 +121,29 @@ namespace Saint_Sender
             Form3 form3 = new Form3();
             this.Hide();
             form3.Show();
+        }
+
+        private void showMessageButton_Click(object sender, EventArgs e)
+        {
+            string senderName;
+            string mailAddress;
+            string subject;
+            string date;
+            string content;
+
+
+            senderName = metroListView1.SelectedItems[0].SubItems[0].Text;
+            mailAddress = metroListView1.SelectedItems[0].SubItems[4].Text;
+            subject = metroListView1.SelectedItems[0].SubItems[1].Text;
+            date = metroListView1.SelectedItems[0].SubItems[2].Text;
+            content = metroListView1.SelectedItems[0].SubItems[3].Text;
+
+            Email emails = new Email(senderName, mailAddress, date, subject, content);
+            emails.SaveMail("Valami.xml");
+            ReadMailFrom email = new ReadMailFrom();
+         
+            email.Show();
+            this.Hide();
         }
     }
 }

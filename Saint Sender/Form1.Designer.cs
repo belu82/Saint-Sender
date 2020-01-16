@@ -37,6 +37,8 @@
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.newMessageButton = new MetroFramework.Controls.MetroButton();
+            this.metroButton2 = new MetroFramework.Controls.MetroButton();
+            this.showMessageButton = new MetroFramework.Controls.MetroButton();
             this.SuspendLayout();
             // 
             // metroButton1
@@ -65,6 +67,7 @@
             this.metroListView1.UseCompatibleStateImageBehavior = false;
             this.metroListView1.UseSelectable = true;
             this.metroListView1.View = System.Windows.Forms.View.Details;
+            this.metroListView1.DoubleClick += new System.EventHandler(this.showMessageButton_Click);
             // 
             // Sender1
             // 
@@ -106,11 +109,32 @@
             this.newMessageButton.UseSelectable = true;
             this.newMessageButton.Click += new System.EventHandler(this.newMessageButton_Click);
             // 
+            // metroButton2
+            // 
+            this.metroButton2.Location = new System.Drawing.Point(0, 0);
+            this.metroButton2.Name = "metroButton2";
+            this.metroButton2.Size = new System.Drawing.Size(75, 23);
+            this.metroButton2.TabIndex = 6;
+            this.metroButton2.Text = "metroButton2";
+            this.metroButton2.UseSelectable = true;
+            // 
+            // showMessageButton
+            // 
+            this.showMessageButton.Location = new System.Drawing.Point(443, 86);
+            this.showMessageButton.Name = "showMessageButton";
+            this.showMessageButton.Size = new System.Drawing.Size(142, 23);
+            this.showMessageButton.TabIndex = 7;
+            this.showMessageButton.Text = "showMessage";
+            this.showMessageButton.UseSelectable = true;
+            this.showMessageButton.Click += new System.EventHandler(this.showMessageButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(876, 450);
+            this.Controls.Add(this.showMessageButton);
+            this.Controls.Add(this.metroButton2);
             this.Controls.Add(this.newMessageButton);
             this.Controls.Add(this.metroLabel1);
             this.Controls.Add(this.metroListView1);
@@ -131,6 +155,8 @@
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private System.Windows.Forms.Timer timer1;
         private MetroFramework.Controls.MetroButton newMessageButton;
+        private MetroFramework.Controls.MetroButton metroButton2;
+        private MetroFramework.Controls.MetroButton showMessageButton;
     }
 }
 
